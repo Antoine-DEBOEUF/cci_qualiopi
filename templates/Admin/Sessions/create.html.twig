@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Création d'une session
+{% endblock %}
+
+{% block body %}
+	<h1>Créer une nouvelle session</h1>
+	<a href="{{path('admin.index')}}">Retour à la liste</a>
+	{{form_start(form)}}
+	{{form_widget(form)}}
+	<button>Créer la session</button>
+	{{form_end(form)}}
+{% endblock %}

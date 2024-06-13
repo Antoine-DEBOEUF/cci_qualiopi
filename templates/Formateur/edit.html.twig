@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Mes informations
+{% endblock %}
+
+{% block body %}
+	<h1>Mes informations</h1>
+	<a href="{{path('app.formateur.profile', {id: user.id})}}">Retour</a>
+
+	<h2>Informations de connexion</h2>
+	{{form_start(form)}}
+	{{form_widget(form)}}
+	<button>Enregistrer les modifications</button>
+	{{form_end(form)}}
+
+	<h2>informations personnelles</h2>
+	{{form_start(formInfos)}}
+	{{form_widget(formInfos)}}
+	<button>Enregistrer les modifications</button>
+	{{form_end(formInfos)}}
+{% endblock %}

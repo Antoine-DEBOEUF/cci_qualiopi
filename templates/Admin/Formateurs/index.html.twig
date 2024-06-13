@@ -1,0 +1,43 @@
+<div>
+	<table>
+		<thead>
+			<tr scope='row'>
+				<th scope='col'>Id</th>
+				<th scope='col'>Nom</th>
+				<th scope='col'>Prénom(s)</th>
+				<th scope='col'>Email</th>
+				<th scope='col'>Role</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			{% for user in users %}
+				<tr scope='row'>
+					<td scope='col'>{{user.id}}</td>
+					<td scope='col'>{{user.infosUser.nom}}</td>
+					<td scope='col'>{{user.infosUser.prenom}}</td>
+					<td scope='col'>{{user.email}}</td>
+					<td scope='col'>
+						{% for role in user.roles %}
+							{{role == 'ROLE_ADMIN'? 'Admin' : 'Formateur'}}
+
+						{% endfor %}
+					</td>
+
+					<td scope='col'>
+
+						<a href="{{ path('admin.formateur.edit', {id: user.id}) }}">Modifier</a>
+					</td>
+					<td scope='col'>
+						<form action="{{ path('admin.formateur.delete', {id: user.id}) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce compte')">
+							<input type="hidden" name="token" value="{{ csrf_token('delete'~ user.id) }}">
+							<button type="submit">Supprimer</button>
+						</form>
+
+					</td>
+
+				{% endfor %}
+			</tbody>
+		</tbody>
+	</table>
+</div>

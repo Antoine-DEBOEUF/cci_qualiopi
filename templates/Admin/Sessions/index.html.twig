@@ -1,0 +1,71 @@
+<div>
+	<table>
+		<thead>
+			<tr scope='row'>
+
+
+				<th scope='col'>Intitulé</th>
+				<th scope='col'>Site</th>
+				<th scope='col'>Formateur</th>
+				<th scope='col'>Date de début
+				</th>
+				<th scope='col'>Date de fin
+				</th>
+				<th scope='col'>Support formateur</th>
+				<th scope='col'>Itinéraire pédagogique</th>
+				<th scope='col'>ECF</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			{% for document in documents %}
+				<td scope='col'>{{document.session.intitule}}</td>
+				<td scope='col'>{{document.session.site}}</td>
+				<td scope='col'>{{document.session.formateur.fullName ?? 'Aucun formateur'}}</td>
+				<td scope='col'>{{document.session.dateDebut}}</td>
+				<td scope='col'>{{document.session.dateFin}}</td>
+				{% for document in session.documents %}
+					<td scope='col'>
+						{% if document.titre == 'support_formateur' %}
+							<a download href="">Document à télécharger</a>
+
+						{% else %}
+							<p>document absent</p>
+						{% endif %}
+
+
+					</td>
+					<td scope='col'>
+						{% if document.titre == 'itineraire_pedagogique' %}
+							<a download href="">Document à télécharger</a>
+							<td scope='col'>
+							{% else %}
+								<p>document absent</p>
+							{% endif %}
+						</td>
+					</td>
+					<td scope='col'>
+						{% if document.titre == 'ecf' %}
+							<a download href="">Document à télécharger</a>
+							<td scope='col'>
+							{% else %}
+								<p>document absent</p>
+							{% endif %}
+						{% endfor %}
+					</td>
+					<td scope='col'>
+
+						<a href="{{ path('admin.session.edit', {id: session.id}) }}">Modifier</a>
+					</td>
+					<td scope='col'>
+						<form action="{{ path('admin.session.delete', {id: session.id}) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette session')">
+							<input type="hidden" name="token" value="{{ csrf_token('delete'~ session.id) }}">
+							<button type="submit">Supprimer</button>
+						</form>
+
+					</td>
+				{% endfor %}
+			</tbody>
+		</tbody>
+	</table>
+</div>

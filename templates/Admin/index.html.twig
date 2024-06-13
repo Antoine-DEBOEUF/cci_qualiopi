@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration CCI
+	{{parent()}}
+{% endblock %}
+
+{% block body %}
+	<h1>Administration</h1>
+
+	<h2>Sessions</h2>
+	<a href="{{path('admin.session.create')}}">Ajouter une nouvelle session</a>
+	{# {% for session in sessions %} #}
+	{% include "Admin/Sessions/index.html.twig" %}
+	{# {% endfor %} #}
+	<h2>
+		Formateurs
+	</h2>
+	<a href="{{path('admin.formateur.create')}}">
+		Ajouter un nouvel utilisateur</a>
+	{# {% for user in users %} #}
+
+{# {% include "Admin/Formateurs/index.html.twig" %} #}
+	{# {% endfor %} #}
+
+
+{% endblock %}

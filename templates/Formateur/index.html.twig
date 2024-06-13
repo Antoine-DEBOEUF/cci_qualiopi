@@ -1,0 +1,14 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Profil formateur
+{% endblock %}
+
+{% block body %}
+	<h1>Gestion de votre profil</h1>
+	{{user.infosUser.prenom}}
+	{{user.infosUser.nom}}
+	<h2>Mes informations</h2>
+	<a href="{{ path('app.formateur.profile.edit', {id: user.id}) }}">Mettre à jour mes informations</a>
+	<h2>Mes sessions</h2>
+{% endblock %}

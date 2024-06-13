@@ -1,0 +1,14 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Modification d'une session
+{% endblock %}
+
+{% block body %}
+	<h1>Modifier une session existante</h1>
+	<a href="{{path('admin.index')}}">Retour à la liste</a>
+
+	{{form_start(form)}}
+	{{form_widget(form)}}
+	<button>Enregistrer les modifications</button>
+	{{form_end(form)}}
+{% endblock %}
