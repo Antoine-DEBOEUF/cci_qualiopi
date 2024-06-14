@@ -3,8 +3,9 @@
 namespace App\Form;
 
 use App\Entity\User;
-use App\Entity\Session;
+use App\Entity\Module;
 use App\Entity\InfosUser;
+use App\Entity\Site;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
@@ -15,7 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
-class SessionType extends AbstractType
+class ModuleType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -29,32 +30,34 @@ class SessionType extends AbstractType
                 ]
             )
 
-            ->add('formateur', EntityType::class, [
+            ->add('user', EntityType::class, [
                 'label' => 'Formateur :',
-                'class' => InfosUser::class,
-                'choice_label' => 'name',
+                'class' => User::class,
+                'choice_label' => 'nom',
                 'query_builder' => function (EntityRepository $er): QueryBuilder {
                     return $er->createQueryBuilder('t')
-                        ->andWhere('t.nom = :nom', 't.prenom= :prenom')
-                        ->orderBy('t.nom', 'ASC');
+                        ->join('t.infosUser', 'i')
+                        ->orderBy('i.nom', 'ASC');
                 },
-                'multiple' => true,
+                'multiple' => false,
                 'expanded' => false,
                 'by_reference' => false,
             ])
 
             ->add(
                 'site',
-                ChoiceType::class,
+                EntityType::class,
                 [
                     'label' => 'Site :',
-                    'choices' => [
-                        'Lyon' => 'lyon',
-                        'Roanne' => 'roanne',
-                        'St-Etienne' => 'st-etienne'
-                    ],
-                    'expanded' => true,
-                    'multiple' => true
+                    'class' => Site::class,
+                    'choice_label' => 'ville',
+                    'query_builder' => function (EntityRepository $er): QueryBuilder {
+                        return $er->createQueryBuilder('t')
+                            ->orderBy('t.ville', 'ASC');
+                    },
+                    'expanded' => false,
+                    'multiple' => false,
+                    'by_reference' => false,
 
                 ]
             )
@@ -79,7 +82,7 @@ class SessionType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Session::class,
+            'data_class' => Module::class,
             'sanitize_html' => true
         ]);
     }

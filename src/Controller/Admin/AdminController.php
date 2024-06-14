@@ -3,7 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Repository\DocumentRepository;
-use App\Repository\SessionRepository;
+use App\Repository\ModuleRepository;
 use App\Repository\UserRepository;
 
 use Symfony\Component\HttpFoundation\Response;
@@ -17,7 +17,7 @@ class AdminController extends AbstractController
 {
     public function __construct(
         private readonly UserRepository $userRepo,
-        private readonly SessionRepository $sessionRepo,
+        private readonly ModuleRepository $moduleRepo,
         private readonly DocumentRepository $docRepo,
 
     ) {
@@ -27,7 +27,7 @@ class AdminController extends AbstractController
     public function index(): Response
     {
         $users = $this->userRepo->findAll();
-        $sessions = $this->sessionRepo->findAll();
+        $modules = $this->moduleRepo->findAll();
 
 
         // dump($users);
@@ -35,7 +35,7 @@ class AdminController extends AbstractController
 
         return $this->render('Admin/index.html.twig', [
             'users' => $users,
-            'sessions' => $sessions,
+            'sessions' => $modules,
             'documents' => $this->docRepo->findAll()
         ]);
     }

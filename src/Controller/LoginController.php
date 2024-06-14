@@ -16,8 +16,9 @@ class LoginController extends AbstractController
         if ($this->getUser()) {
             if ($this->getUser()->getRoles() == 'ROLE_ADMIN') {
                 return $this->redirectToRoute('admin.index');
+            } else {
+                return $this->redirectToRoute('app.formateur.profile');
             }
-            // else {return $this->redirectToRoute();}
         }
         $error = $authenticationUtils->getLastAuthenticationError();
 

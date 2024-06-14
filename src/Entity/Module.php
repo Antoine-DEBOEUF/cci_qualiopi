@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\SessionRepository;
+use App\Repository\ModuleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: SessionRepository::class)]
-class Session
+#[ORM\Entity(repositoryClass: ModuleRepository::class)]
+class Module
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -27,15 +27,19 @@ class Session
     /**
      * @var Collection<int, Document>
      */
-    #[ORM\OneToMany(targetEntity: Document::class, mappedBy: 'session')]
+    #[ORM\OneToMany(targetEntity: Document::class, mappedBy: 'modules')]
     private Collection $documents;
 
-    #[ORM\ManyToOne(inversedBy: 'sessions')]
-    private ?User $formateur = null;
+    #[ORM\ManyToOne(inversedBy: 'modules')]
+    private ?User $user = null;
 
-    #[ORM\ManyToOne(inversedBy: 'sessions')]
+    #[ORM\ManyToOne(inversedBy: 'modules')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Site $site = null;
+
+    #[ORM\ManyToOne(inversedBy: 'modules')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?formation $formation = null;
 
     public function __construct()
     {
@@ -97,7 +101,7 @@ class Session
     {
         if (!$this->documents->contains($document)) {
             $this->documents->add($document);
-            $document->setSession($this);
+            $document->setModule($this);
         }
 
         return $this;
@@ -107,22 +111,22 @@ class Session
     {
         if ($this->documents->removeElement($document)) {
             // set the owning side to null (unless already changed)
-            if ($document->getSession() === $this) {
-                $document->setSession(null);
+            if ($document->getModule() === $this) {
+                $document->setModule(null);
             }
         }
 
         return $this;
     }
 
-    public function getFormateur(): ?User
+    public function getUser(): ?User
     {
-        return $this->formateur;
+        return $this->user;
     }
 
-    public function setFormateur(?User $formateur): static
+    public function setUser(?User $user): static
     {
-        $this->formateur = $formateur;
+        $this->user = $user;
 
         return $this;
     }
@@ -135,6 +139,18 @@ class Session
     public function setSite(?Site $site): static
     {
         $this->site = $site;
+
+        return $this;
+    }
+
+    public function getFormation(): ?Formation
+    {
+        return $this->formation;
+    }
+
+    public function setFormation(?Formation $formation): static
+    {
+        $this->formation = $formation;
 
         return $this;
     }

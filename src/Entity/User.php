@@ -41,8 +41,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Session>
      */
-    #[ORM\OneToMany(targetEntity: Session::class, mappedBy: 'formateur')]
-    private Collection $sessions;
+    #[ORM\OneToMany(targetEntity: Module::class, mappedBy: 'formateur')]
+    private Collection $modules;
 
     #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
     private ?InfosUser $infosUser = null;
@@ -50,7 +50,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->documents = new ArrayCollection();
-        $this->sessions = new ArrayCollection();
+        $this->modules = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -156,35 +156,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    /**
-     * @return Collection<int, Session>
-     */
-    public function getSessions(): Collection
-    {
-        return $this->sessions;
-    }
 
-    public function addSession(Session $session): static
-    {
-        if (!$this->sessions->contains($session)) {
-            $this->sessions->add($session);
-            $session->setFormateur($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSession(Session $session): static
-    {
-        if ($this->sessions->removeElement($session)) {
-            // set the owning side to null (unless already changed)
-            if ($session->getFormateur() === $this) {
-                $session->setFormateur(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getInfosUser(): ?InfosUser
     {
@@ -199,6 +171,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $this->infosUser = $infosUser;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of modules
+     *
+     * @return Collection
+     */
+    public function getModules(): Collection
+    {
+        return $this->modules;
+    }
+
+    /**
+     * Set the value of modules
+     *
+     * @param Collection $modules
+     *
+     * @return self
+     */
+    public function setModules(Collection $modules): self
+    {
+        $this->modules = $modules;
 
         return $this;
     }

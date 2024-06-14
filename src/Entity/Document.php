@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\User;
-use App\Entity\Session;
+use App\Entity\Module;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\DocumentRepository;
 
@@ -26,7 +26,7 @@ class Document
 
     #[ORM\ManyToOne(inversedBy: 'documents')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Session $session = null;
+    private ?Module $module = null;
 
     public function getId(): ?int
     {
@@ -59,14 +59,14 @@ class Document
         return $this;
     }
 
-    public function getSession(): ?session
+    public function getModule(): ?Module
     {
-        return $this->session;
+        return $this->module;
     }
 
-    public function setSession(?session $session): static
+    public function setModule(?Module $module): static
     {
-        $this->session = $session;
+        $this->module = $module;
 
         return $this;
     }

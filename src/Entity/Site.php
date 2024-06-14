@@ -27,12 +27,19 @@ class Site
     /**
      * @var Collection<int, Session>
      */
-    #[ORM\OneToMany(targetEntity: Session::class, mappedBy: 'site')]
+    #[ORM\OneToMany(targetEntity: Module::class, mappedBy: 'site')]
     private Collection $sessions;
+
+    /**
+     * @var Collection<int, Formation>
+     */
+    #[ORM\OneToMany(targetEntity: Formation::class, mappedBy: 'site')]
+    private Collection $formations;
 
     public function __construct()
     {
         $this->sessions = new ArrayCollection();
+        $this->formations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -65,29 +72,29 @@ class Site
     }
 
     /**
-     * @return Collection<int, Session>
+     * @return Collection<int, Formation>
      */
-    public function getSessions(): Collection
+    public function getFormations(): Collection
     {
-        return $this->sessions;
+        return $this->formations;
     }
 
-    public function addSession(Session $session): static
+    public function addFormation(Formation $formation): static
     {
-        if (!$this->sessions->contains($session)) {
-            $this->sessions->add($session);
-            $session->setSite($this);
+        if (!$this->formations->contains($formation)) {
+            $this->formations->add($formation);
+            $formation->setSite($this);
         }
 
         return $this;
     }
 
-    public function removeSession(Session $session): static
+    public function removeFormation(Formation $formation): static
     {
-        if ($this->sessions->removeElement($session)) {
+        if ($this->formations->removeElement($formation)) {
             // set the owning side to null (unless already changed)
-            if ($session->getSite() === $this) {
-                $session->setSite(null);
+            if ($formation->getSite() === $this) {
+                $formation->setSite(null);
             }
         }
 
