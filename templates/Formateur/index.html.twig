@@ -5,10 +5,85 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Gestion de votre profil</h1>
-	{{user.fullName}}
+<h1>Gestion de votre profil</h1>
+{{user.fullName}}
 
-	<h2>Mes informations</h2>
-	<a href="{{ path('app.formateur.profile.edit', {id: user.id}) }}">Mettre à jour mes informations</a>
-	<h2>Mes modules</h2>
-{% endblock %}
+<h2>Mes informations</h2>
+<a href="{{ path('app.formateur.profile.edit', {id: user.id}) }}">Mettre à jour mes informations</a>
+<h2>Mes modules</h2>
+<div>
+	<table>
+		<thead>
+			<tr scope='row'>
+
+
+				<th scope='col'>Intitulé</th>
+				<th scope='col'>Formation associée</th>
+				<th scope='col'>Site</th>
+				<th scope='col'>Date de début
+				</th>
+				<th scope='col'>Date de fin
+				</th>
+				<th scope='col'>Support formateur</th>
+				<th scope='col'>Itinéraire pédagogique</th>
+				<th scope='col'>ECF</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for module in modules %}
+				{% if module.user.Fullname == user.Fullname %}
+
+					<td scope='col'>{{module.intitule}}</td>
+					<td scope='col'>{{module.formation.intitule}}</td>
+					<td scope='col'>{{module.site}}</td>
+					<td scope='col'>{{module.dateDebut | date('d/m/Y')}}</td>
+					<td scope='col'>{{module.dateFin | date('d/m/Y')}}</td>
+
+
+					{% for document in modules.documents %}
+						<td scope='col'>
+							{% if document.titre == 'support_formateur'  %}
+								Document envoyé
+								<form method="POST" enctype="multipart/form-data">
+									<input type="file"></input>
+								<button type="submit">Renvoyer un document</button>
+							</form>
+						{% else %}
+							<form method="POST" enctype="multipart/form-data">
+								<input type="file"></input>
+							<button type="submit">Envoyer</button>
+						</form>
+					{% endif %}
+				</td>
+
+
+				<td scope='col'>
+					{% if document.titre == 'itineraire_pedagogique'  %}
+						<p>Document envoyé</p>
+						<form method="POST" enctype="multipart/form-data">
+							<input type="file"></input>
+						<button type="submit">Renvoyer un document</button>
+					</form>
+				{% else %}
+					<form method="POST" enctype="multipart/form-data">
+						<input type="file"></input>
+					<button type="submit">Envoyer</button>
+				</form>
+			{% endif %}
+		</tbody>
+	</td>
+	<td scope='col'>
+		{% if document.titre == 'ecf' %}
+			<p>Document envoyé</p>
+			<form method="POST" enctype="multipart/form-data">
+				<input type="file"></input>
+			<button type="submit">Renvoyer un document</button>
+		</form>
+	{% else %}
+		<form method="POST" enctype="multipart/form-data">
+			<input type="file"></input>
+		<button type="submit">Envoyer</button>
+	</form>
+{% endif %}</td>{% endfor %}<td scope='col'><a href="{{ path('admin.module.edit', {id: module.id}) }}">Modifier</a></td><td scope='col'><form action="{{ path('admin.module.delete', {id: module.id}) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette session')">
+<input type="hidden" name="token" value="{{ csrf_token('delete'~ module.id) }}">
+<button type="submit">Supprimer</button></form></td>{% endif %}{% endfor %}</tbody></table></div>{% endblock %}

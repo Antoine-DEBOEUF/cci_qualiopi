@@ -3,8 +3,9 @@
 		<thead>
 			<tr scope='row'>
 
-
+				<th scope='col'>Id</th>
 				<th scope='col'>Intitulé</th>
+				<th scope='col'>Formation associée</th>
 				<th scope='col'>Site</th>
 				<th scope='col'>Formateur</th>
 				<th scope='col'>Date de début
@@ -19,53 +20,53 @@
 		<tbody>
 
 			{% for module in modules %}
+				<td scope='col'>{{module.id}}</td>
 				<td scope='col'>{{module.intitule}}</td>
+				<td scope='col'>{{module.formation.intitule}}</td>
 				<td scope='col'>{{module.site}}</td>
 				<td scope='col'>{{module.user.fullName ? module.user.fullName : 'Aucun formateur'}}</td>
 				<td scope='col'>{{module.dateDebut | date('d/m/Y')}}</td>
 				<td scope='col'>{{module.dateFin | date('d/m/Y')}}</td>
-				{% for document in module.documents %}
+				{% for document in documents %}
 					<td scope='col'>
-						{% if document.titre == 'support_formateur' %}
+						{% if document.titre == 'support_formateur' and document.module.intitule == module.intitule %}
 							<a download href="">Document à télécharger</a>
 
 						{% else %}
-							<p>document absent</p>
+							document absent
 						{% endif %}
 
 
 					</td>
 					<td scope='col'>
-						{% if document.titre == 'itineraire_pedagogique' %}
+						{% if document.titre == 'itineraire_pedagogique'and document.module.intitule == module.intitule %}
 							<a download href="">Document à télécharger</a>
-							<td scope='col'>
-							{% else %}
-								<p>document absent</p>
-							{% endif %}
-						</td>
-					</td>
-					<td scope='col'>
-						{% if document.titre == 'ecf' %}
-							<a download href="">Document à télécharger</a>
-							<td scope='col'>
-							{% else %}
-								<p>document absent</p>
-							{% endif %}
-						{% endfor %}
-					</td>
-					<td scope='col'>
 
-						<a href="{{ path('admin.module.edit', {id: module.id}) }}">Modifier</a>
+						{% else %}
+							document absent
+						{% endif %}
 					</td>
-					<td scope='col'>
-						<form action="{{ path('admin.module.delete', {id: module.id}) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette session')">
-							<input type="hidden" name="token" value="{{ csrf_token('delete'~ module.id) }}">
-							<button type="submit">Supprimer</button>
-						</form>
+				</td>
+				<td scope='col'>
+					{% if document.titre == 'ecf' and document.module.intitule == module.intitule %}
+						<a download href="">Document à télécharger</a>
 
-					</td>
+					{% else %}
+						document absent
+					{% endif %}
 				{% endfor %}
-			</tbody>
-		</tbody>
-	</table>
-</div>
+			</td>
+			<td scope='col'>
+
+				<a href="{{ path('admin.module.edit', {id: module.id}) }}">Modifier</a>
+			</td>
+			<td scope='col'>
+				<form action="{{ path('admin.module.delete', {id: module.id}) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce module')">
+					<input type="hidden" name="token" value="{{ csrf_token('delete'~ module.id) }}">
+					<button type="submit">Supprimer</button>
+				</form>
+
+			</td>
+		{% endfor %}
+	</tbody>
+</tbody></table></div>

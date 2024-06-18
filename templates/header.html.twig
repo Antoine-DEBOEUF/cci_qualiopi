@@ -1,0 +1,14 @@
+<header>
+	<nav>
+		{% if app.user %}
+
+			{% if is_granted('ROLE_ADMIN') %}
+				<ul>
+					<li><ahref="{{path('admin.index')}}">Accueil</a></li>
+				</ul>
+			{% endif %}
+			<a href="/logout">Déconnexion</a>
+		{% endif %}
+	</nav>
+
+</header>

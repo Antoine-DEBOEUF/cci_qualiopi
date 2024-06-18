@@ -16,19 +16,18 @@
 
 	<h3>Modules</h3>
 	<a href="{{path('admin.module.create')}}">Ajouter un nouveau module</a>
-	{# {% for session in sessions %} #}
-	{# {% include "Admin/Modules/index.html.twig" %} #}
-	{# {% endfor %} #}
+
+	{% include "Admin/Modules/index.html.twig" %}
 
 
-		<h2>
-	Formateurs
+	<h2>
+		Formateurs
 	</h2>
-		<a href="{{path('admin.formateur.create')}}"> Ajouter un nouvel utilisateur</a>
-	{# {% for user in users %} #}
+	<a href="{{path('admin.formateur.create')}}">
+		Ajouter un nouvel utilisateur</a>
+
 
 	{% include "Admin/Formateurs/index.html.twig" %}
-	{# {% endfor %} #}
 
 
 {% endblock %}

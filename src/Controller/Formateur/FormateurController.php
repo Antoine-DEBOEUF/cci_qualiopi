@@ -2,10 +2,10 @@
 
 namespace App\Controller\Formateur;
 
-use App\Entity\InfosUser;
+use App\Entity\Module;
 use App\Entity\User;
-use App\Form\InfosUserType;
 use App\Form\UserType;
+use App\Repository\ModuleRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,15 +21,17 @@ class FormateurController extends AbstractController
     public function __construct(
         private readonly UserRepository $userRepo,
         private readonly EntityManagerInterface $em,
-        private UserPasswordHasherInterface $hasher
+        private UserPasswordHasherInterface $hasher,
+        private readonly ModuleRepository $moduleRepo
     ) {
     }
     #[Route('/{id}', name: '.profile', methods: ['GET'])]
-    public function index(User $user, UserRepository $userRepo): Response
+    public function index(User $user, UserRepository $userRepo, ModuleRepository $moduleRepo): Response
     {
 
         return $this->render('Formateur/index.html.twig', [
             'user' => $userRepo->findOneById($user->getId()),
+            'modules' => $moduleRepo->FindAll()
         ]);
     }
 

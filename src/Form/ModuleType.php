@@ -38,7 +38,10 @@ class ModuleType extends AbstractType
                     'class' => Formation::class,
                     'choice_label' => function (Formation $formation): string {
                         return $formation->getIntitule();
-                    }
+                    },
+                    'multiple' => false,
+                    'expanded' => false,
+                    'by_reference' => false,
                 ]
             )
 

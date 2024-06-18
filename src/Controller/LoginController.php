@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,13 +15,7 @@ class LoginController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
 
-        if ($this->getUser()) {
-            if ($this->getUser()->getRoles() == 'ROLE_ADMIN') {
-                return $this->redirectToRoute('admin.index');
-            } else {
-                return $this->redirectToRoute('app.formateur.profile');
-            }
-        }
+
         $error = $authenticationUtils->getLastAuthenticationError();
 
         $lastUsername = $authenticationUtils->getLastUsername();
@@ -28,5 +24,21 @@ class LoginController extends AbstractController
             'last_username' => $lastUsername,
             'error' => $error,
         ]);
+    }
+
+    #[Route('/redirect', name: 'app_redirect_after_login', methods: ['GET', 'POST'])]
+    public function redirectAfterLogin(): Response
+    {
+
+        $currentUser = $this->getUser();
+        if ($currentUser instanceof User) {
+            $userId = $currentUser->getId();
+            if (in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
+                return $this->redirectToRoute('admin.index');
+            } else {
+
+                return $this->redirectToRoute('app.formateur.profile', ['id' => $userId]);
+            }
+        }
     }
 }
