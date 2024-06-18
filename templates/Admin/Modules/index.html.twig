@@ -18,13 +18,13 @@
 		</thead>
 		<tbody>
 
-			{% for document in documents %}
-				<td scope='col'>{{document.module.intitule}}</td>
-				<td scope='col'>{{document.module.site}}</td>
-				<td scope='col'>{{document.module.formateur.fullName ?? 'Aucun formateur'}}</td>
-				<td scope='col'>{{document.module.dateDebut}}</td>
-				<td scope='col'>{{document.module.dateFin}}</td>
-				{% for document in session.documents %}
+			{% for module in modules %}
+				<td scope='col'>{{module.intitule}}</td>
+				<td scope='col'>{{module.site}}</td>
+				<td scope='col'>{{module.user.fullName ? module.user.fullName : 'Aucun formateur'}}</td>
+				<td scope='col'>{{module.dateDebut | date('d/m/Y')}}</td>
+				<td scope='col'>{{module.dateFin | date('d/m/Y')}}</td>
+				{% for document in module.documents %}
 					<td scope='col'>
 						{% if document.titre == 'support_formateur' %}
 							<a download href="">Document à télécharger</a>
@@ -59,7 +59,7 @@
 					</td>
 					<td scope='col'>
 						<form action="{{ path('admin.module.delete', {id: module.id}) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette session')">
-							<input type="hidden" name="token" value="{{ csrf_token('delete'~ session.id) }}">
+							<input type="hidden" name="token" value="{{ csrf_token('delete'~ module.id) }}">
 							<button type="submit">Supprimer</button>
 						</form>
 

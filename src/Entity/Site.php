@@ -59,6 +59,11 @@ class Site
         return $this;
     }
 
+    public function __toString(): string
+    {
+        return $this->ville;
+    }
+
     public function getCodePostal(): ?int
     {
         return $this->code_postal;

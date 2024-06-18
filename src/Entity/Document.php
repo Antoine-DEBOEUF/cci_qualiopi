@@ -22,7 +22,7 @@ class Document
 
     #[ORM\ManyToOne(inversedBy: 'documents')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $formateur = null;
+    private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'documents')]
     #[ORM\JoinColumn(nullable: false)]
@@ -47,14 +47,14 @@ class Document
 
 
 
-    public function getFormateur(): ?user
+    public function getUser(): ?user
     {
-        return $this->formateur;
+        return $this->user;
     }
 
-    public function setFormateur(?user $formateur): static
+    public function setUser(?user $user): static
     {
-        $this->formateur = $formateur;
+        $this->user = $user;
 
         return $this;
     }

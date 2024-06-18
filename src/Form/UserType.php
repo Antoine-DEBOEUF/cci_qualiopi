@@ -52,7 +52,25 @@ class UserType extends AbstractType
                     'label' => 'Répéter le mot de passe :',
 
                 ],
-            ]);
+            ])
+
+            ->add(
+                'nom',
+                TextType::class,
+                [
+                    'label' => 'Nom :',
+                    'required' => false
+                ]
+            )
+
+            ->add(
+                'prenom',
+                TextType::class,
+                [
+                    'label' => 'Prénom(s) :',
+                    'required' => false
+                ]
+            );
 
         if ($options['isAdmin']) {
             $builder->add(

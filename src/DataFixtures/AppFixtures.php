@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\InfosUser;
+use App\Entity\Module;
 use App\Entity\Session;
 use App\Entity\Site;
 use App\Entity\User;
@@ -22,6 +23,8 @@ class AppFixtures extends Fixture
         // $manager->persist($product);
 
         $user = (new User)
+            ->setNom('test')
+            ->setPrenom('admin')
             ->setEmail('admin@test.com')
             ->setPassword($this->hasher->hashPassword(new User, 'Test1234!'))
             ->setRoles(["ROLE_ADMIN"]);
@@ -29,22 +32,24 @@ class AppFixtures extends Fixture
         $manager->persist($user);
 
         $user = (new User)
+            ->setNom('test')
+            ->setPrenom('user')
             ->setEmail('user@test.com')
             ->setPassword($this->hasher->hashPassword(new User, 'Test1234!'))
             ->setRoles(["ROLE_USER"]);
 
         $manager->persist($user);
 
-        $user = (new InfosUser)
-            ->setNom('test')
-            ->setPrenom('admin');
+        // $user = (new InfosUser)
+        //     ->setNom('test')
+        //     ->setPrenom('admin');
 
-        $manager->persist($user);
+        // $manager->persist($user);
 
-        $user = (new InfosUser)
-            ->setNom('test')
-            ->setPrenom('user');
-        $manager->persist($user);
+        // $user = (new InfosUser)
+        //     ->setNom('test')
+        //     ->setPrenom('user');
+        // $manager->persist($user);
 
         $site = (new Site)
             ->setVille('Lyon')
@@ -52,19 +57,20 @@ class AppFixtures extends Fixture
 
         $manager->persist($site);
 
-        $session = (new Session)
-            ->setIntitule('session1')
-            ->setDateDebut('01/01/2020')
-            ->setDateFin('01/12/2020');
+        // $module = (new Module)
 
-        $manager->persist($session);
+        //     ->setIntitule('session1')
+        //     ->setDateDebut('01/01/2020')
+        //     ->setDateFin('01/12/2020');
 
-        $session = (new Session)
-            ->setIntitule('session2')
-            ->setDateDebut('01/02/2020')
-            ->setDateFin('04/12/2020');
+        // $manager->persist($module);
 
-        $manager->persist($session);
+        // $module = (new Module)
+        //     ->setIntitule('session2')
+        //     ->setDateDebut('01/02/2020')
+        //     ->setDateFin('04/12/2020');
+
+        // $manager->persist($module);
 
         $manager->flush();
     }

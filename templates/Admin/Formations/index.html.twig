@@ -1,0 +1,40 @@
+<div>
+	<table>
+		<thead>
+			<tr scope='row'>
+
+				<th scope='col'>Id</th>
+				<th scope='col'>Intitulé</th>
+				<th scope='col'>Site</th>
+				<th scope='col'>Date de début
+				</th>
+				<th scope='col'>Date de fin
+				</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			{% for formation in formations %}
+				<tr scope='row'>
+					<td scope='col'>{{formation.id}}</td>
+					<td scope='col'>{{formation.intitule}}</td>
+					<td scope='col'>{{formation.site}}</td>
+					<td scope='col'>{{formation.dateDebut | date('d/m/Y')}}</td>
+					<td scope='col'>{{formation.dateFin | date('d/m/Y')}}</td>
+
+					<td scope='col'>
+
+						<a href="{{ path('admin.module.edit', {id: formation.id}) }}">Modifier</a>
+					</td>
+					<td scope='col'>
+						<form action="{{ path('admin.module.delete', {id: formation.id}) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette session')">
+							<input type="hidden" name="token" value="{{ csrf_token('delete'~ formation.id) }}">
+							<button type="submit">Supprimer</button>
+						</form>
+
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</tbody>
+</table></div>

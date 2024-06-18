@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Repository\DocumentRepository;
+use App\Repository\FormationRepository;
 use App\Repository\ModuleRepository;
 use App\Repository\UserRepository;
 
@@ -19,6 +20,7 @@ class AdminController extends AbstractController
         private readonly UserRepository $userRepo,
         private readonly ModuleRepository $moduleRepo,
         private readonly DocumentRepository $docRepo,
+        private readonly FormationRepository $formaRepo
 
     ) {
     }
@@ -35,8 +37,9 @@ class AdminController extends AbstractController
 
         return $this->render('Admin/index.html.twig', [
             'users' => $users,
-            'sessions' => $modules,
-            'documents' => $this->docRepo->findAll()
+            'modules' => $modules,
+            'documents' => $this->docRepo->findAll(),
+            'formations' => $this->formaRepo->findAll()
         ]);
     }
 }

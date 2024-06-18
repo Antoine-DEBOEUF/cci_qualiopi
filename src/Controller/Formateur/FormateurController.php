@@ -55,27 +55,13 @@ class FormateurController extends AbstractController
 
 
 
-        $InfosUser = $user->getInfosUser();
-        if (!$InfosUser) {
-            $InfosUser = (new InfosUser);
-            $user->setInfosUser($InfosUser);
-        }
 
-        $formInfos = $this->createForm(InfosUserType::class, $InfosUser);
-        $formInfos->handleRequest($request);
 
-        if ($formInfos->isSubmitted() && $formInfos->isValid()) {
-
-            $this->em->persist($InfosUser);
-            $this->em->flush();
-
-            return $this->redirectToRoute('app.formateur.profile', ['id' => $user->getId()]);
-        }
         return $this->render('Formateur/edit.html.twig', [
             'form' => $form,
-            'formInfos' => $formInfos,
+
             'user' => $user,
-            'InfosUser' => $InfosUser
+
         ]);
     }
 }

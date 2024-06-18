@@ -12,10 +12,11 @@
 		</thead>
 		<tbody>
 			{% for user in users %}
+
 				<tr scope='row'>
 					<td scope='col'>{{user.id}}</td>
-					<td scope='col'>{{user.infosUser.nom}}</td>
-					<td scope='col'>{{user.infosUser.prenom}}</td>
+					<td scope='col'>{{user.nom}}</td>
+					<td scope='col'>{{user.prenom}}</td>
 					<td scope='col'>{{user.email}}</td>
 					<td scope='col'>
 						{% for role in user.roles %}

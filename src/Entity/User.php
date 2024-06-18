@@ -22,6 +22,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
+    private ?string $nom = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $prenom = null;
+
+    #[ORM\Column(length: 255)]
     private ?string $password = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -35,17 +41,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Document>
      */
-    #[ORM\OneToMany(targetEntity: Document::class, mappedBy: 'formateur')]
+    #[ORM\OneToMany(targetEntity: Document::class, mappedBy: 'user')]
     private Collection $documents;
 
     /**
      * @var Collection<int, Session>
      */
-    #[ORM\OneToMany(targetEntity: Module::class, mappedBy: 'formateur')]
+    #[ORM\OneToMany(targetEntity: Module::class, mappedBy: 'user')]
     private Collection $modules;
 
-    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
-    private ?InfosUser $infosUser = null;
+    // #[ORM\OneToOne(targetEntity: InfosUser::class, mappedBy: 'user', cascade: ['persist', 'remove'])]
+    // private ?InfosUser $infosUser = null;
+
+
 
     public function __construct()
     {
@@ -66,6 +74,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): static
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): static
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): static
+    {
+        $this->prenom = $prenom;
 
         return $this;
     }
@@ -120,7 +152,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->documents->contains($document)) {
             $this->documents->add($document);
-            $document->setFormateur($this);
+            $document->setUser($this);
         }
 
         return $this;
@@ -130,8 +162,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->documents->removeElement($document)) {
             // set the owning side to null (unless already changed)
-            if ($document->getFormateur() === $this) {
-                $document->setFormateur(null);
+            if ($document->getUser() === $this) {
+                $document->setUser(null);
             }
         }
 
@@ -157,23 +189,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
+    /**
+     * @ORM\OneToOne(targetEntity=InfosUser::class, mappedBy="user")
+     */
+    // public function getInfosUser(): ?InfosUser
+    // {
+    //     return $this->infosUser;
+    // }
 
-    public function getInfosUser(): ?InfosUser
-    {
-        return $this->infosUser;
-    }
+    // public function setInfosUser(InfosUser $infosUser): static
+    // {
+    //     // set the owning side of the relation if necessary
+    //     if ($infosUser->getUser() !== $this) {
+    //         $infosUser->setUser($this);
+    //     }
 
-    public function setInfosUser(InfosUser $infosUser): static
-    {
-        // set the owning side of the relation if necessary
-        if ($infosUser->getUser() !== $this) {
-            $infosUser->setUser($this);
-        }
+    //     $this->infosUser = $infosUser;
 
-        $this->infosUser = $infosUser;
-
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * Get the value of modules
@@ -198,4 +232,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getFullName(): string
+    {
+        return "$this->prenom $this->nom";
+    }
+
+    // public function getInfos(): ?InfosUser
+    // {
+    //     return $this->infosUser;
+    // }
+
+    // public function setInfos(?InfosUser $infos): static
+    // {
+    //     $this->infosUser = $infos;
+
+    //     return $this;
+    // }
 }

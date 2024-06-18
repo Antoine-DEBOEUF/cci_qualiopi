@@ -23,11 +23,11 @@ class Formation
     #[ORM\JoinColumn(nullable: false)]
     private ?site $site = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $date_debut = null;
+    #[ORM\Column(length: 255)]
+    private ?string $date_debut = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $date_fin = null;
+    #[ORM\Column(length: 255)]
+    private ?string $date_fin = null;
 
     /**
      * @var Collection<int, Module>
@@ -69,29 +69,8 @@ class Formation
         return $this;
     }
 
-    public function getDateDebut(): ?\DateTimeInterface
-    {
-        return $this->date_debut;
-    }
 
-    public function setDateDebut(\DateTimeInterface $date_debut): static
-    {
-        $this->date_debut = $date_debut;
 
-        return $this;
-    }
-
-    public function getDateFin(): ?\DateTimeInterface
-    {
-        return $this->date_fin;
-    }
-
-    public function setDateFin(\DateTimeInterface $date_fin): static
-    {
-        $this->date_fin = $date_fin;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Module>
@@ -119,6 +98,54 @@ class Formation
                 $module->setFormation(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * Get the value of date_fin
+     *
+     * @return ?string
+     */
+    public function getDateFin(): ?string
+    {
+        return $this->date_fin;
+    }
+
+    /**
+     * Set the value of date_fin
+     *
+     * @param ?string $date_fin
+     *
+     * @return self
+     */
+    public function setDateFin(?string $date_fin): self
+    {
+        $this->date_fin = $date_fin;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of date_debut
+     *
+     * @return ?string
+     */
+    public function getDateDebut(): ?string
+    {
+        return $this->date_debut;
+    }
+
+    /**
+     * Set the value of date_debut
+     *
+     * @param ?string $date_debut
+     *
+     * @return self
+     */
+    public function setDateDebut(?string $date_debut): self
+    {
+        $this->date_debut = $date_debut;
 
         return $this;
     }

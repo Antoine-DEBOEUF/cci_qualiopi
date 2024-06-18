@@ -4,7 +4,9 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Entity\InfosUser;
 use App\Repository\UserRepository;
+use App\Repository\InfosUserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,6 +19,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class FormateurController extends AbstractController
 {
     public function __construct(
+
         private readonly UserRepository $userRepo,
         private readonly EntityManagerInterface $em,
         private UserPasswordHasherInterface $hasher
@@ -26,9 +29,12 @@ class FormateurController extends AbstractController
     #[Route('/index', '.index', methods: ['GET'])]
     public function index(): Response
     {
+
         $users = $this->userRepo->findAll();
+
         return $this->render('Admin/Formateurs/index.html.twig', [
-            'users' => $users,
+
+            'users' => $users
         ]);
     }
 

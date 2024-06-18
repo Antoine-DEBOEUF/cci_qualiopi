@@ -2,9 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Formation;
 use App\Entity\User;
 use App\Entity\Module;
-use App\Entity\InfosUser;
 use App\Entity\Site;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\EntityRepository;
@@ -13,8 +13,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+
 
 class ModuleType extends AbstractType
 {
@@ -30,14 +30,27 @@ class ModuleType extends AbstractType
                 ]
             )
 
+            ->add(
+                'formation',
+                EntityType::class,
+                [
+                    'label' => 'Formation associée :',
+                    'class' => Formation::class,
+                    'choice_label' => function (Formation $formation): string {
+                        return $formation->getIntitule();
+                    }
+                ]
+            )
+
             ->add('user', EntityType::class, [
                 'label' => 'Formateur :',
                 'class' => User::class,
-                'choice_label' => 'nom',
+                'choice_label' => function (User $User): string {
+                    return $User->getFullName();
+                },
                 'query_builder' => function (EntityRepository $er): QueryBuilder {
-                    return $er->createQueryBuilder('t')
-                        ->join('t.infosUser', 'i')
-                        ->orderBy('i.nom', 'ASC');
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.prenom', 'ASC');
                 },
                 'multiple' => false,
                 'expanded' => false,
@@ -63,7 +76,7 @@ class ModuleType extends AbstractType
             )
             ->add(
                 'date_debut',
-                NumberType::class,
+                DateType::class,
                 [
                     'label' => 'Date de début :',
                     'required' => false
@@ -71,7 +84,7 @@ class ModuleType extends AbstractType
             )
             ->add(
                 'date_fin',
-                NumberType::class,
+                DateType::class,
                 [
                     'label' => 'Date de fin :',
                     'required' => false

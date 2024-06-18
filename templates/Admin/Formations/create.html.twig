@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Création d'une formation
+{% endblock %}
+
+{% block body %}
+	<h1>Créer une nouvelle formation</h1>
+	<a href="{{path('admin.index')}}">Retour à la liste</a>
+	{{form_start(form)}}
+	{{form_widget(form)}}
+	<button>Créer la formation</button>
+	{{form_end(form)}}
+{% endblock %}

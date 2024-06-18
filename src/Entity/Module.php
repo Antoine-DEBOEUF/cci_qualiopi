@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ModuleRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -19,10 +20,10 @@ class Module
     private ?string $intitule = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $date_debut = null;
+    private ?DateTimeImmutable $date_debut = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $date_fin = null;
+    private ?DateTimeImmutable $date_fin = null;
 
     /**
      * @var Collection<int, Document>
@@ -39,7 +40,7 @@ class Module
 
     #[ORM\ManyToOne(inversedBy: 'modules')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?formation $formation = null;
+    private ?Formation $formation = null;
 
     public function __construct()
     {
@@ -65,24 +66,24 @@ class Module
 
 
 
-    public function getDateDebut(): ?string
+    public function getDateDebut(): ?DateTimeImmutable
     {
         return $this->date_debut;
     }
 
-    public function setDateDebut(string $date_debut): static
+    public function setDateDebut(DateTimeImmutable $date_debut): static
     {
         $this->date_debut = $date_debut;
 
         return $this;
     }
 
-    public function getDateFin(): ?string
+    public function getDateFin(): ?DateTimeImmutable
     {
         return $this->date_fin;
     }
 
-    public function setDateFin(string $date_fin): static
+    public function setDateFin(DateTimeImmutable $date_fin): static
     {
         $this->date_fin = $date_fin;
 
