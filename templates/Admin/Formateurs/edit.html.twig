@@ -5,10 +5,12 @@
 
 {% block body %}
 	<h1>Modifier un compte utilisateur</h1>
-	<a href="{{path('admin.index')}}">Retour à la liste</a>
+	<a href="{{path('admin.index')}}" class="btnmodif">Retour à la liste</a>
 
-	{{form_start(form)}}
-	{{form_widget(form)}}
-	<button>Enregistrer les modifications</button>
-	{{form_end(form)}}
+	<div class="tableview">
+		{{form_start(form)}}
+		{{form_widget(form)}}
+		<button type="submit" class="btncreat">Enregistrer les modifications</button>
+		{{form_end(form)}}
+	</div>
 {% endblock %}

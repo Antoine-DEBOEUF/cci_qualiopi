@@ -1,0 +1,31 @@
+<div>
+	<table>
+		<thead>
+			<tr scope='row'>
+				<th scope='col'>Ville</th>
+				<th scope='col'>Code postal</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			{% for site in sites %}
+				<tr scope='row'>
+					<td scope='col'>{{site.ville}}</td>
+					<td scope='col'>{{site.codepostal}}</td>
+
+					<td scope='col'>
+
+						<a href="{{ path('admin.site.edit', {id: site.id}) }}" class="btnmodif">Modifier</a>
+					</td>
+					<td scope='col'>
+						<form action="{{ path('admin.site.delete', {id: site.id}) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce site ?')">
+							<input type="hidden" name="token" value="{{ csrf_token('delete'~ site.id) }}">
+							<button type="submit" class="btndelete">Supprimer</button>
+						</form>
+
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>

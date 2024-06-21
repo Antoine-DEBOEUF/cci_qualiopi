@@ -1,15 +1,15 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Modification d'une session
+{% block title %}Création d'un site
 {% endblock %}
 
 {% block body %}
-	<h1>Modifier une session existante</h1>
+	<h1>Créer un nouveau site</h1>
 	<a href="{{path('admin.index')}}" class="btnmodif">Retour à la liste</a>
 	<div class="tableview">
 		{{form_start(form)}}
 		{{form_widget(form)}}
-		<button type="submit" class="btncreat">Enregistrer les modifications</button>
+		<button type="submit" class="btncreat">Créer le site</button>
 		{{form_end(form)}}
 	</div>
 {% endblock %}

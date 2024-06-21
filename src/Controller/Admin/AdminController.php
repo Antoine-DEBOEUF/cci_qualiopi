@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Repository\DocumentRepository;
 use App\Repository\FormationRepository;
 use App\Repository\ModuleRepository;
+use App\Repository\SiteRepository;
 use App\Repository\UserRepository;
 
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +21,8 @@ class AdminController extends AbstractController
         private readonly UserRepository $userRepo,
         private readonly ModuleRepository $moduleRepo,
         private readonly DocumentRepository $docRepo,
-        private readonly FormationRepository $formaRepo
+        private readonly FormationRepository $formaRepo,
+        private readonly SiteRepository $siteRepo
 
     ) {
     }
@@ -39,7 +41,8 @@ class AdminController extends AbstractController
             'users' => $users,
             'modules' => $modules,
             'documents' => $this->docRepo->findAll(),
-            'formations' => $this->formaRepo->findAll()
+            'formations' => $this->formaRepo->findAll(),
+            'sites' => $this->siteRepo->findAll()
         ]);
     }
 }

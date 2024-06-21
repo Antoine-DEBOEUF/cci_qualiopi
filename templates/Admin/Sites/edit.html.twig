@@ -1,11 +1,11 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Mes informations
+{% block title %}Modification d'un site
 {% endblock %}
 
 {% block body %}
-	<h1>Mes informations</h1>
-	<a href="{{path('app.formateur.profile', {id: user.id})}}" class="btnmodif">Retour</a>
+	<h1>Modifier un site existant</h1>
+	<a href="{{path('admin.index')}}" class="btnmodif">Retour à la liste</a>
 
 	<div class="tableview">
 		{{form_start(form)}}
@@ -13,6 +13,4 @@
 		<button type="submit" class="btncreat">Enregistrer les modifications</button>
 		{{form_end(form)}}
 	</div>
-
-
 {% endblock %}

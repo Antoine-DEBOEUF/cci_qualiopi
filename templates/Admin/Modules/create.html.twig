@@ -6,8 +6,10 @@
 {% block body %}
 	<h1>Créer un nouveau module</h1>
 	<a href="{{path('admin.index')}}">Retour à la liste</a>
-	{{form_start(form)}}
-	{{form_widget(form)}}
-	<button>Créer le module</button>
-	{{form_end(form)}}
+	<div class="tableview">
+		{{form_start(form)}}
+		{{form_widget(form)}}
+		<button>Créer le module</button>
+		{{form_end(form)}}
+	</div>
 {% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Modification d'une formation
+{% endblock %}
+
+{% block body %}
+	<h1>Modifier une formation existante</h1>
+	<a href="{{path('admin.index')}}" class="btnmodif">Retour à la liste</a>
+	<div class="tableview">
+		{{form_start(form)}}
+		{{form_widget(form)}}
+		<button type="submit" class="btncreat">Enregistrer les modifications</button>
+		{{form_end(form)}}
+	</div>
+{% endblock %}

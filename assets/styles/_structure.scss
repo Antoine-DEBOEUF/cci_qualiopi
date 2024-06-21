@@ -1,0 +1,126 @@
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+  }
+
+  h1,h2{
+    margin-top: 2em;
+    text-align: center;
+  }
+
+h3{
+margin-bottom: 10px;
+}
+
+  header{
+    height: max-content;
+    width: 100%;
+  }
+
+  
+
+  /* navbar */
+
+  #navbar_list{
+    display: flex;
+    flex-direction: row;
+    align-items:end;
+    list-style: none;
+    justify-content: end;
+  }
+
+  .navbar_item{
+    margin-right: 20px;
+  }
+
+  /* boutons et liens */
+  a{
+    text-decoration: none;
+  }
+
+  #btndeco{
+    border: 1px solid;
+    border-radius: 8px;
+    background-color: red;
+    color: white;
+    padding: 5px;
+  }
+
+  .btnadmin{
+    border: 1px solid;
+    border-radius: 8px;
+    background-color: $primary_red;
+    color: white;
+    padding: 5px;
+  }
+
+  .btncreat{
+    border: 1px solid;
+    border-radius: 8px;
+    background-color: $primary_blue;
+    color: white;
+    padding: 5px;
+  }
+
+  .btnmodif{
+    border: 1px solid;
+    border-radius: 8px;
+    background-color: orange;
+    color: white;
+    padding: 5px;
+  }
+
+  .btndelete{
+    background-color: red;
+    color:white;
+    padding: 5px;
+    border-radius: 8px;
+  }
+
+ 
+/* tableaux */
+  .tableview{
+    display:flex;
+    flex-direction: column;
+    align-items: start;
+    margin:auto;
+    margin-top: 20px;
+    width: max-content;
+    border: solid 1px;
+    border-radius: 8px;
+    padding: 30px;
+  }
+
+  .tableheader{
+    margin-bottom: 20px;
+  }
+
+  
+  
+  th{
+    
+    padding: 5px;
+    align-items: center;
+  }
+
+  .th{
+    
+    padding: 5px;
+    align-items: center;
+  }
+
+
+  td{
+    align-items: center;
+    padding: 5px;
+    
+  }
+
+  .td{
+    align-items: center;
+    padding: 15px;
+    
+  }
+
+  

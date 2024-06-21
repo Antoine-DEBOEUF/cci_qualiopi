@@ -36,6 +36,8 @@ class SiteType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Site::class,
+            'sanitize_html' => true,
+            'isAdmin' => false,
         ]);
     }
 }

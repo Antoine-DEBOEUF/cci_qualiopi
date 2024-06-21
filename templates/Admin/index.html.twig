@@ -9,25 +9,47 @@
 
 	<h2>Sessions</h2>
 
-	<h3>Formations</h3>
+	<div class="tableview">
+		<div class="tableheader">
+			<h3>Formations</h3>
 
-	<a href="{{path('admin.formations.create')}}">Ajouter une formation</a>
-	{% include "Admin/Formations/index.html.twig" %}
+			<a href="{{path('admin.formations.create')}}" class="btncreat">Ajouter une formation</a>
+		</div>
+		{% include "Admin/Formations/index.html.twig" %}
+	</div>
 
-	<h3>Modules</h3>
-	<a href="{{path('admin.module.create')}}">Ajouter un nouveau module</a>
+	<div class="tableview">
+		<div class="tableheader">
+			<h3>Modules</h3>
+			<a href="{{path('admin.module.create')}}" class="btncreat">Ajouter un nouveau module</a>
+		</div>
 
-	{% include "Admin/Modules/index.html.twig" %}
+		{% include "Admin/Modules/index.html.twig" %}
+	</div>
 
 
 	<h2>
 		Formateurs
 	</h2>
-	<a href="{{path('admin.formateur.create')}}">
-		Ajouter un nouvel utilisateur</a>
+	<div class="tableview">
+		<div class="tableheader">
+			<a href="{{path('admin.formateur.create')}}" class="btncreat">
+				Ajouter un nouvel utilisateur</a>
+		</div>
 
+		{% include "Admin/Formateurs/index.html.twig" %}
+	</div>
 
-	{% include "Admin/Formateurs/index.html.twig" %}
+	<h2>
+		Sites
+	</h2>
+	<div class="tableview">
+		<div class="tableheader">
+			<a href="{{path('admin.site.create')}}" class="btncreat">
+				Ajouter un nouveau site</a>
+		</div>
 
+		{% include "Admin/Sites/index.html.twig" %}
+	</div>
 
 {% endblock %}

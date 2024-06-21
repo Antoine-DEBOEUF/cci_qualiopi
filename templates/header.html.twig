@@ -1,14 +1,21 @@
 <header>
 	<nav>
-		{% if app.user %}
+		<img src="/public/logo_cci.png" alt="Logo de la CCI">
+		<ul id="navbar_list">
+			{% if app.user %}
 
-			{% if is_granted('ROLE_ADMIN') %}
-				<ul>
-					<li><ahref="{{path('admin.index')}}">Accueil</a></li>
-				</ul>
+				{% if is_granted('ROLE_ADMIN') %}
+
+					<li class="navbar_item">
+						<a href="{{path('admin.index')}}" class="btnadmin">Accueil administrateur</a>
+					</li>
+
+				{% endif %}
+				<li class="navbar_item">
+					<a href="/logout" id="btndeco">Déconnexion</a>
+				</li>
 			{% endif %}
-			<a href="/logout">Déconnexion</a>
-		{% endif %}
+		</ul>
 	</nav>
 
 </header>

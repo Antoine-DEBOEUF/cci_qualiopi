@@ -5,6 +5,7 @@ namespace App\Controller\Formateur;
 use App\Entity\Module;
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\DocumentRepository;
 use App\Repository\ModuleRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,12 +27,13 @@ class FormateurController extends AbstractController
     ) {
     }
     #[Route('/{id}', name: '.profile', methods: ['GET'])]
-    public function index(User $user, UserRepository $userRepo, ModuleRepository $moduleRepo): Response
+    public function index(User $user, UserRepository $userRepo, ModuleRepository $moduleRepo, DocumentRepository $docuRepo): Response
     {
 
         return $this->render('Formateur/index.html.twig', [
             'user' => $userRepo->findOneById($user->getId()),
-            'modules' => $moduleRepo->FindAll()
+            'modules' => $moduleRepo->FindAll(),
+            'documents' => $docuRepo->findAll()
         ]);
     }
 

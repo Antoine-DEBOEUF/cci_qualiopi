@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class DocumentType extends AbstractType
 {
@@ -18,20 +19,17 @@ class DocumentType extends AbstractType
     {
         $builder
             ->add(
-                'titre',
-                TextType::class,
+                'file',
+                VichFileType::class,
                 [
                     'label' => 'Document :',
                     'required' => false,
-
+                    'allow_delete' => true,
+                    'delete_label' => 'Supprimer le document',
+                    'document_uri' => true,
+                    'download_uri' => false,
 
                 ]
-            )
-
-            ->add(
-                'document',
-                FileType::class,
-                []
             );
     }
 

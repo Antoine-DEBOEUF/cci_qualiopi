@@ -47,7 +47,7 @@ class FormationType extends AbstractType
             )
 
             ->add('site', EntityType::class, [
-                'class' => site::class,
+                'class' => Site::class,
                 'choice_label' =>  function (Site $Site): string {
                     return $Site->getVille();
                 },
@@ -57,7 +57,7 @@ class FormationType extends AbstractType
                 },
                 'expanded' => false,
                 'multiple' => false,
-                'by_reference' => false,
+                'by_reference' => true,
             ]);
     }
 
@@ -65,7 +65,8 @@ class FormationType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Formation::class,
-            'sanitize_html' => true
+            'sanitize_html' => true,
+            'isAdmin' => false,
         ]);
     }
 }
