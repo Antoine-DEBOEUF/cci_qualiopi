@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\FormationRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -24,10 +25,10 @@ class Formation
     private ?site $site = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $date_debut = null;
+    private ?DateTimeImmutable $date_debut = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $date_fin = null;
+    private ?DateTimeImmutable $date_fin = null;
 
     /**
      * @var Collection<int, Module>
@@ -102,36 +103,14 @@ class Formation
         return $this;
     }
 
-    /**
-     * Get the value of date_fin
-     *
-     * @return ?string
-     */
-    public function getDateFin(): ?string
-    {
-        return $this->date_fin;
-    }
 
-    /**
-     * Set the value of date_fin
-     *
-     * @param ?string $date_fin
-     *
-     * @return self
-     */
-    public function setDateFin(?string $date_fin): self
-    {
-        $this->date_fin = $date_fin;
-
-        return $this;
-    }
 
     /**
      * Get the value of date_debut
      *
-     * @return ?string
+     * @return ?DateTimeImmutable
      */
-    public function getDateDebut(): ?string
+    public function getDateDebut(): ?DateTimeImmutable
     {
         return $this->date_debut;
     }
@@ -139,13 +118,37 @@ class Formation
     /**
      * Set the value of date_debut
      *
-     * @param ?string $date_debut
+     * @param ?DateTimeImmutable $date_debut
      *
      * @return self
      */
-    public function setDateDebut(?string $date_debut): self
+    public function setDateDebut(?DateTimeImmutable $date_debut): self
     {
         $this->date_debut = $date_debut;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of date_fin
+     *
+     * @return ?DateTimeImmutable
+     */
+    public function getDateFin(): ?DateTimeImmutable
+    {
+        return $this->date_fin;
+    }
+
+    /**
+     * Set the value of date_fin
+     *
+     * @param ?DateTimeImmutable $date_fin
+     *
+     * @return self
+     */
+    public function setDateFin(?DateTimeImmutable $date_fin): self
+    {
+        $this->date_fin = $date_fin;
 
         return $this;
     }

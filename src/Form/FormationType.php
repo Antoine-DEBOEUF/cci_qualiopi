@@ -30,7 +30,7 @@ class FormationType extends AbstractType
 
             ->add(
                 'date_debut',
-                TextType::class,
+                DateType::class,
                 [
                     'label' => 'Date de début :',
                     'required' => false
@@ -39,7 +39,7 @@ class FormationType extends AbstractType
 
             ->add(
                 'date_fin',
-                TextType::class,
+                DateType::class,
                 [
                     'label' => 'Date de fin :',
                     'required' => false
