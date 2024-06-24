@@ -6,12 +6,15 @@
 
 {% block body %}
 	<h1>Gestion de votre profil</h1>
-	{{user.fullName}}
-
-	<h2>Mes informations</h2>
-	<a href="{{ path('app.formateur.profile.edit', {id: user.id}) }}">Mettre à jour mes informations</a>
+	<div class="profiletitle">
+		{{user.fullName}}
+	</div>
+	<div id="lienProfilUser">
+		<h2>Mes informations</h2>
+		<a href="{{ path('app.formateur.profile.edit', {id: user.id}) }}" class="btnmodif">Mettre à jour mes informations</a>
+	</div>
 	<h2>Mes modules</h2>
-	<div>
+	<div class="tableview">
 		<table>
 			<thead>
 				<tr scope='row'>
@@ -31,73 +34,68 @@
 			</thead>
 			<tbody>
 				{% for module in modules %}
-					{% if module.user.Fullname == user.Fullname %}
+					<tr>
+						{% if module.user.Fullname == user.Fullname %}
 
-						<td scope='col'>{{module.intitule}}</td>
-						<td scope='col'>{{module.formation.intitule}}</td>
-						<td scope='col'>{{module.site}}</td>
-						<td scope='col'>{{module.dateDebut | date('d/m/Y')}}</td>
-						<td scope='col'>{{module.dateFin | date('d/m/Y')}}</td>
-
-
-						{% for document in documents %}
-							<td scope='col'>
-								{% if document.titre == 'support_formateur' and document.module.intitule == module.intitule %}
-									Document envoyé
-									<form method="POST" enctype="multipart/form-data">
-										{{document.file}}
-										<button type="submit">Renvoyer un document</button>
-									</form>
-								{% else %}
-									<form method="POST" enctype="multipart/form-data">
-										{{document.file}}
-										<button type="submit">Envoyer</button>
-									</form>
-								{% endif %}
-							</td>
+							<td>{{module.intitule}}</td>
+							<td>{{module.formation.intitule}}</td>
+							<td>{{module.site}}</td>
+							<td>{{module.dateDebut | date('d/m/Y')}}</td>
+							<td>{{module.dateFin | date('d/m/Y')}}</td>
 
 
-							<td scope='col'>
-								{% if document.titre == 'itineraire_pedagogique' and document.module.intitule == module.intitule %}
-									<p>Document envoyé</p>
-									<form method="POST" enctype="multipart/form-data">
-										{{document.file}}
-										<button type="submit">Renvoyer un document</button>
-									</form>
-								{% else %}
-									<form method="POST" enctype="multipart/form-data">
-										{{document.file}}
-										<button type="submit">Envoyer</button>
-									</form>
-								{% endif %}
-							</td>
-
-
-							<td scope='col'>
-								{% if document.titre == 'ecf'and document.module.intitule == module.intitule %}
-									<p>Document envoyé</p>
-									<form method="POST" enctype="multipart/form-data">
-										{{document.file}}
-										<button type="submit">Renvoyer un document</button>
-									</form>
-								{% else %}
-									<form method="POST" enctype="multipart/form-data">
-										{{document.file}}
-										<button type="submit">Envoyer</button>
-									</form>
+							{% for document in documents %}
+								<td>
+									{% if document.titre == 'support_formateur' and document.module.intitule == module.intitule %}
+										Document envoyé
+										<form method="POST" enctype="multipart/form-data">
+											{{document.file}}
+											<button type="submit">Renvoyer un document</button>
+										</form>
+									{% else %}
+										<form method="POST" enctype="multipart/form-data">
+											{{document.file}}
+											<button type="submit">Envoyer</button>
+										</form>
+									{% endif %}
 								</td>
-							{% endif %}
 
-						{% endfor %}
-						<td scope='col'>
-							<a href="{{ path('admin.module.edit', {id: module.id}) }}">Modifier</a>
-						</td>
-						<td scope='col'>
-							<form action="{{ path('admin.module.delete', {id: module.id}) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette session')">
-								<input type="hidden" name="token" value="{{ csrf_token('delete'~ module.id) }}"><button type="submit">Supprimer</button>
-							</form>
-						</td>
-					{% endif %}
+
+								<td>
+									{% if document.titre == 'itineraire_pedagogique' and document.module.intitule == module.intitule %}
+										<p>Document envoyé</p>
+										<form method="POST" enctype="multipart/form-data">
+											{{document.file}}
+											<button type="submit">Renvoyer un document</button>
+										</form>
+									{% else %}
+										<form method="POST" enctype="multipart/form-data">
+											{{document.file}}
+											<button type="submit">Envoyer</button>
+										</form>
+									{% endif %}
+								</td>
+
+
+								<td>
+									{% if document.titre == 'ecf'and document.module.intitule == module.intitule %}
+										<p>Document envoyé</p>
+										<form method="POST" enctype="multipart/form-data">
+											{{document.file}}
+											<button type="submit">Renvoyer un document</button>
+										</form>
+									{% else %}
+										<form method="POST" enctype="multipart/form-data">
+											{{document.file}}
+											<button type="submit">Envoyer</button>
+										</form>
+									</td>
+								{% endif %}
+
+							{% endfor %}
+
+						{% endif %}
+					</tr>
 				{% endfor %}
 			</tbody>
 		</table>
