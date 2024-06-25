@@ -16,6 +16,9 @@ margin-bottom: 10px;
   header{
     height: max-content;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items:center;
   }
 
   
@@ -23,15 +26,26 @@ margin-bottom: 10px;
   /* navbar */
 
   #navbar_list{
+    
+    flex-direction: column;
     display: flex;
-    flex-direction: row;
-    align-items:end;
+    justify-content: center;
+    align-items:center;
     list-style: none;
-    justify-content: end;
+    
+    width: fit-content;
   }
 
   .navbar_item{
+    
     margin-right: 20px;
+    
+  }
+
+  #navbar_btns{
+    display: flex;
+    flex-direction: row;
+    list-style: none;
   }
 
   /* boutons et liens */
