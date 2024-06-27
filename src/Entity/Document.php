@@ -11,6 +11,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: DocumentRepository::class)]
+#[ORM\HasLifecycleCallbacks]
+#[Vich\Uploadable]
 class Document
 {
     #[ORM\Id]
@@ -18,13 +20,11 @@ class Document
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $titre = null;
 
     #[Vich\UploadableField(mapping: 'documents', fileNameProperty: 'fileName', size: 'fileSize')]
-    #[Assert\File(
-        detectCorrupted: true
-    )]
+    #[Assert\File()]
     private ?File $File = null;
 
     #[ORM\Column(nullable: true)]
@@ -38,25 +38,28 @@ class Document
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'documents')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Module $module = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $Categorie = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTitre(): ?string
-    {
-        return $this->titre;
-    }
+    // public function getTitre(): ?string
+    // {
+    //     return $this->titre;
+    // }
 
-    public function setTitre(string $titre): static
-    {
-        $this->titre = $titre;
+    // public function setTitre(string $titre): static
+    // {
+    //     $this->titre = $titre;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
 
 
@@ -152,6 +155,42 @@ class Document
     public function setFileSize(?int $fileSize): self
     {
         $this->fileSize = $fileSize;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?string
+    {
+        return $this->Categorie;
+    }
+
+    public function setCategorie(string $Categorie): static
+    {
+        $this->Categorie = $Categorie;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of titre
+     *
+     * @return ?string
+     */
+    public function getTitre(): ?string
+    {
+        return $this->titre;
+    }
+
+    /**
+     * Set the value of titre
+     *
+     * @param ?string $titre
+     *
+     * @return self
+     */
+    public function setTitre(?string $titre): self
+    {
+        $this->titre = $titre;
 
         return $this;
     }

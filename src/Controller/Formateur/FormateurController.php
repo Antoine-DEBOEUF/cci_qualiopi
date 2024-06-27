@@ -2,12 +2,11 @@
 
 namespace App\Controller\Formateur;
 
-use App\Entity\Module;
 use App\Entity\User;
 use App\Form\UserType;
-use App\Repository\DocumentRepository;
-use App\Repository\ModuleRepository;
 use App\Repository\UserRepository;
+use App\Repository\ModuleRepository;
+use App\Repository\DocumentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,10 +29,14 @@ class FormateurController extends AbstractController
     public function index(User $user, UserRepository $userRepo, ModuleRepository $moduleRepo, DocumentRepository $docuRepo): Response
     {
 
+        $user = $this->getUser();
+
+
         return $this->render('Formateur/index.html.twig', [
-            'user' => $userRepo->findOneById($user->getId()),
+            'user' => $userRepo->findOneById($user),
             'modules' => $moduleRepo->FindAll(),
-            'documents' => $docuRepo->findAll()
+            'documents' => $docuRepo->findAll(),
+
         ]);
     }
 

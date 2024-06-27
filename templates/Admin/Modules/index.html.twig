@@ -26,49 +26,73 @@
 					<td scope='col'>{{module.dateDebut | date('d/m/Y')}}</td>
 					<td scope='col'>{{module.dateFin | date('d/m/Y')}}</td>
 
+					{% if documents is empty %}
+						<td>
 
-					{% for document in documents %}
-						<td scope='col'>
-							{% if document.titre == 'support_formateur' and document.module.intitule == module.intitule %}
-								<a download href="{{vich_uploader_asset(document)}}">Document à télécharger</a>
-
-							{% else %}
-								document absent
-							{% endif %}
-
-
-						</td>
-						<td scope='col'>
-							{% if document.titre == 'itineraire_pedagogique'and document.module.intitule == module.intitule %}
-								<a download href="{{vich_uploader_asset(document)}}">Document à télécharger</a>
-
-							{% else %}
-								document absent
-							{% endif %}
+							Table "documents" vide
 						</td>
 
-						<td scope='col'>
-							{% if document.titre == 'ecf' and document.module.intitule == module.intitule %}
-								<a download href="{{vich_uploader_asset(document)}}">Document à télécharger</a>
+						<td>
 
-							{% else %}
-								document absent
-							{% endif %}
+							Table "documents" vide
 						</td>
+
+						<td>
+
+							Table "documents" vide
+						</td>
+
+						<td>
+							<a href="{{ path('app.formateur.document.upload', {id: user.id}) }}" class="btncreat">Envoyer un fichier</a>
+						</td>
+					{% else %}
+						{% for document in documents %}
+							{% if document.categorie != 'modele'  %}
+
+								<td>
+									{% if document.categorie == 'support_formateur' and document.module.id == module.id %}
+										<a download href="{{vich_uploader_asset(document)}}">Document à télécharger</a>
+
+									{% else %}
+										document absent
+									{% endif %}
+
+
+								</td>
+								<td>
+									{% if document.categorie == 'itin_pedago' and document.module.id == module.id %}
+										<a download href="{{vich_uploader_asset(document)}}">Document à télécharger</a>
+
+									{% else %}
+										document absent
+									{% endif %}
+								</td>
+
+								<td>
+									{% if document.categorie == 'ecf' and document.module.id == module.id %}
+										<a download href="{{vich_uploader_asset(document)}}">Document à télécharger</a>
+
+									{% else %}
+										document absent
+									{% endif %}
+								</td>
+
+
+								<td>
+
+									<a href="{{ path('admin.module.edit', {id: module.id}) }}" class="btnmodif">Modifier</a>
+								</td>
+								<td>
+									<form action="{{ path('admin.module.delete', {id: module.id}) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce module')">
+										<input type="hidden" name="token" value="{{ csrf_token('delete'~ module.id) }}">
+										<button type="submit" class="btndelete">Supprimer</button>
+									</form>
+
+								</td>
+							</tr>
+						{% endif %}
 					{% endfor %}
-
-					<td scope='col'>
-
-						<a href="{{ path('admin.module.edit', {id: module.id}) }}" class="btnmodif">Modifier</a>
-					</td>
-					<td scope='col'>
-						<form action="{{ path('admin.module.delete', {id: module.id}) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce module')">
-							<input type="hidden" name="token" value="{{ csrf_token('delete'~ module.id) }}">
-							<button type="submit" class="btndelete">Supprimer</button>
-						</form>
-
-					</td>
-				</tr>
+				{% endif %}
 			{% endfor %}
 		</tbody>
 	</table>

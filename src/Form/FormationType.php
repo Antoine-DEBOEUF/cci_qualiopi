@@ -47,7 +47,8 @@ class FormationType extends AbstractType
             )
 
             ->add('site', EntityType::class, [
-                'class' => Site::class,
+                'label' => 'Site :',
+                'class' => site::class,
                 'choice_label' =>  function (Site $Site): string {
                     return $Site->getVille();
                 },

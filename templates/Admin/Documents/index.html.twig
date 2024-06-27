@@ -1,0 +1,38 @@
+<div>
+	<table>
+		<thead>
+			<tr scope='row'></tr>
+		</thead>
+		<tbody>
+			{% if documents is empty %}
+
+				Table "documents" vide
+				<td>
+					<a href="{{ path('admin.documents.upload') }}" class="btncreat">Envoyer un fichier</a>
+				</td>
+			{% else %}
+				{% for document in documents %}
+
+					<tr scope='row'>
+
+						<td>
+							{% if document.categorie == 'modele' %}
+								{{document.titre}}
+								<a href="{{ path('admin.documents.edit', {id: document.id}) }}" class="btnmodif">Modifier</a>
+								<form action="{{ path('admin.documents.delete', {id: document.id}) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce document')">
+									<input type="hidden" name="token" value="{{ csrf_token('delete'~ document.id) }}">
+									<button type="submit" class="btndelete">Supprimer</button>
+								</form>
+								{% else %}
+
+							{% endif %}
+						</td>
+
+					</tr>
+				{% endfor %}
+			{% endif %}
+
+
+		</tbody>
+	</table>
+</div>

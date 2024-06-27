@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Modifier un document
+{% endblock %}
+
+{% block body %}
+	<h1>Modifier un document</h1>
+	<a href="{{path('app.formateur.profile', {id: user.id})}}" class="btnmodif">Retour</a>
+
+	<div class="tableview">
+		{{form_start(form)}}
+		{{form_widget(form)}}
+		<button type="submit" class="btncreat">Enregistrer les modifications</button>
+		{{form_end(form)}}
+	</div>
+
+
+{% endblock %}

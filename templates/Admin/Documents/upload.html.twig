@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Envoyer un document
+{% endblock %}
+
+{% block body %}
+	<h1>Envoyer un document</h1>
+	<a href="{{path('admin.index')}}" class="btnmodif">Retour</a>
+
+	<div class="tableview">
+		{{form_start(form)}}
+		{{form_widget(form)}}
+		<button type="submit" class="btncreat">Envoyer</button>
+		{{form_end(form)}}
+	</div>
+
+
+{% endblock %}

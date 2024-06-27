@@ -27,7 +27,13 @@
 		{% include "Admin/Modules/index.html.twig" %}
 	</div>
 
-
+	<h2>Modèles de documents</h2>
+	<div class="tableview">
+		<div class="tableheader">
+			<a href="{{path('admin.documents.upload')}}" class="btncreat">Ajouter un modèle</a>
+		</div>
+		{% include "Admin/Documents/index.html.twig" %}
+	</div>
 	<h2>
 		Formateurs
 	</h2>

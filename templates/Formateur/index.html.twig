@@ -13,6 +13,37 @@
 		<h2>Mes informations</h2>
 		<a href="{{ path('app.formateur.profile.edit', {id: user.id}) }}" class="btnmodif">Mettre à jour mes informations</a>
 	</div>
+
+	<h2>Modèles de documents</h2>
+	<div class="tableview">
+		<table>
+
+			<tbody>
+				{% if documents is empty %}
+
+					Aucun modèle disponible
+
+				{% else %}
+					{% for document in documents %}
+
+						<tr scope='row'>
+							{% if document.categorie == 'modele' %}
+
+								<a download href="{{vich_uploader_asset(document)}}">{{document.titre}}</a>
+
+								{% else %}
+
+							{% endif %}
+
+
+						</tr>
+					{% endfor %}
+				{% endif %}
+
+
+			</tbody>
+		</table>
+	</div>
 	<h2>Mes modules</h2>
 	<div class="tableview">
 		<table>
@@ -28,8 +59,11 @@
 					<th scope='col'>Date de fin
 					</th>
 					<th scope='col'>Support formateur</th>
+
 					<th scope='col'>Itinéraire pédagogique</th>
+
 					<th scope='col'>ECF</th>
+
 				</tr>
 			</thead>
 			<tbody>
@@ -43,56 +77,67 @@
 							<td>{{module.dateDebut | date('d/m/Y')}}</td>
 							<td>{{module.dateFin | date('d/m/Y')}}</td>
 
-
-							{% for document in documents %}
+							{% if documents is empty %}
 								<td>
-									{% if document.titre == 'support_formateur' and document.module.intitule == module.intitule %}
-										Document envoyé
-										<form method="POST" enctype="multipart/form-data">
-											{{document.file}}
-											<button type="submit">Renvoyer un document</button>
-										</form>
-									{% else %}
-										<form method="POST" enctype="multipart/form-data">
-											{{document.file}}
-											<button type="submit">Envoyer</button>
-										</form>
-									{% endif %}
+
+									Table "documents" vide
 								</td>
-
-
+								<td></td>
 								<td>
-									{% if document.titre == 'itineraire_pedagogique' and document.module.intitule == module.intitule %}
-										<p>Document envoyé</p>
-										<form method="POST" enctype="multipart/form-data">
-											{{document.file}}
-											<button type="submit">Renvoyer un document</button>
-										</form>
-									{% else %}
-										<form method="POST" enctype="multipart/form-data">
-											{{document.file}}
-											<button type="submit">Envoyer</button>
-										</form>
-									{% endif %}
+
+									Table "documents" vide
 								</td>
-
-
+								<td></td>
 								<td>
-									{% if document.titre == 'ecf'and document.module.intitule == module.intitule %}
-										<p>Document envoyé</p>
-										<form method="POST" enctype="multipart/form-data">
-											{{document.file}}
-											<button type="submit">Renvoyer un document</button>
-										</form>
-									{% else %}
-										<form method="POST" enctype="multipart/form-data">
-											{{document.file}}
-											<button type="submit">Envoyer</button>
-										</form>
-									</td>
-								{% endif %}
 
-							{% endfor %}
+									Table "documents" vide
+								</td>
+								<td></td>
+								<td>
+									<a href="{{ path('app.formateur.document.upload', {id: user.id}) }}" class="btncreat">Envoyer un fichier</a>
+								</td>
+							{% else %}
+								{% for document in documents %}
+									{% if document.module.id is defined and document.module.id == module.id  %}
+
+										<td>
+											{% if document.categorie == 'support_formateur' %}
+												Document envoyé
+												<a href="{{ path('app.formateur.document.edit', {id: document.id}) }}" class="btnmodif">Modifier</a>
+											{% else %}
+												Document non trouvé
+											{% endif %}
+										</td>
+
+
+										<td>
+
+											{% if document.categorie == 'itin_pedago'  %}
+												Document envoyé
+												<a href="{{ path('app.formateur.document.edit', {id: document.id}) }}" class="btnmodif">Modifier</a>
+											{% else %}
+												Document absent
+											{% endif %}
+										</td>
+
+
+										<td>
+											{% if document.categorie == 'ecf' %}
+												Document envoyé
+												<a href="{{ path('app.formateur.document.edit', {id: document.id}) }}" class="btnmodif">Modifier</a>
+											{% else %}
+												Document non trouvé
+											{% endif %}
+										</td>
+
+
+										<td>
+											<a href="{{ path('app.formateur.document.upload', {id: user.id}) }}" class="btncreat">Envoyer un fichier</a>
+										</td>
+									{% endif %}
+								{% endfor %}
+							{% endif %}
+
 
 						{% endif %}
 					</tr>
